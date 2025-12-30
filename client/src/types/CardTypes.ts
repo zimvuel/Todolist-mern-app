@@ -1,4 +1,3 @@
-export interface CardProps {
+export interface Todo {
     title: string;
-    description: string;
 }
