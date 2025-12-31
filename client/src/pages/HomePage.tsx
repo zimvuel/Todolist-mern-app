@@ -15,7 +15,6 @@ const HomePage = () => {
       } catch (error) {
         console.log("fetch todos error", error);
       }
-      
     }
 
     fetchTodos();
@@ -24,7 +23,7 @@ const HomePage = () => {
   return (
     <div>
       {todos.map(todo => {
-        return <TodoCard title={todo.title} /> 
+        return <TodoCard title={todo.title} _id={todo._id}/> 
       })}
       <div className="absolute bottom-4 right-4">
         <Link to="/addtodo">

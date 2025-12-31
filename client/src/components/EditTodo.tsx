@@ -1,18 +1,31 @@
 import axios from "axios";
-import { useState } from "react"
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
+import type { TodoParams } from "../types/CardTypes";
 
-const AddTodo = () => {
+const EditTodo = ({id} : TodoParams ) => {
     const [title, setTitle] = useState("");
 
     const navigate = useNavigate();
 
-    const postTodo = async () => {
+    useEffect(() => {
+        const fetchTodo = async () => {
+            try{
+                const res = await axios.get(`http://localhost:5001/api/todolist/${id}`);
+                setTitle(res.data.title)
+            } catch (error) {
+                console.log("error fetching data for edit", error);
+            }
+        }
+        fetchTodo();
+    }, [id]);
+
+    const updateTodo = async () => {
         try{
-            await axios.post("http://localhost:5001/api/todolist", {title: title});
+            await axios.put(`http://localhost:5001/api/todolist/${id}`, {title: title});
             navigate("/");
         } catch (error) {
-            console.log("error in post todo", error);
+            console.log("error in update todo", error);
         }
         
     }
@@ -20,7 +33,7 @@ const AddTodo = () => {
     return (
         <div className="flex flex-col items-center justify-center bg-white rounded-2xl w-64 h-48">
             <div className="text-2xl font-extrabold">
-                New Todo
+                Change Todo
             </div>
             <div>
                 <input 
@@ -35,9 +48,9 @@ const AddTodo = () => {
                 <Link to="/">
                     <button>
                         CANCEL
-                    </button>
+                    </button>   
                 </Link>
-                <button onClick={postTodo}>
+                <button onClick={updateTodo}>
                     APPlY
                 </button>
             </div>
@@ -45,4 +58,4 @@ const AddTodo = () => {
     )
 }
 
-export default AddTodo
+export default EditTodo
