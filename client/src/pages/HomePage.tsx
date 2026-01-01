@@ -53,11 +53,22 @@ const HomePage = () => {
           </button>
         </form>
         <div className="flex flex-col relative">
-            <button className={`flex gap-6 text-2xl items-center bg-primary-purple/90 rounded-lg text-white ${isDropdown ? "p-[6.5px] border-2 border-primary-purple rounded-lg" : "p-2"}`} onClick={() => {
-            setIsDropdown(!isDropdown)
-          }}>
+            <button 
+            className={`flex gap-6 text-2xl items-center bg-primary-purple/90 rounded-lg text-white 
+                        ${isDropdown 
+                          ? "p-[6.5px] border-2 border-primary-purple rounded-lg" 
+                          : "p-2"
+                        }`
+                      } 
+            onClick={() => {
+              setIsDropdown(!isDropdown)
+            }}
+            >
             {filter}
-            {isDropdown ? <MdOutlineArrowDropUp /> : <MdOutlineArrowDropDown />}
+            {isDropdown 
+              ? <MdOutlineArrowDropUp /> 
+              : <MdOutlineArrowDropDown />
+            }
           </button>
           {isDropdown && 
             <div className="absolute flex flex-col text-primary-purple border border-primary-purple rounded-lg bg-white z-3 mt-13 w-26">
@@ -97,7 +108,10 @@ const HomePage = () => {
               setIsDarkMode(!isDarkMode)
             }}
           >
-            {isDarkMode ? <MdOutlineLightMode className="text-4xl text-white"/> : <MdOutlineDarkMode className="text-4xl text-white"/> }
+            {isDarkMode 
+              ? <MdOutlineLightMode className="text-4xl text-white"/> 
+              : <MdOutlineDarkMode className="text-4xl text-white"/> 
+            }
           </button>
       </div>
       <div className="gap-2">
