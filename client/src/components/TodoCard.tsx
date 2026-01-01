@@ -20,7 +20,7 @@ const TodoCard = ({title, _id} : Todo) => {
     }
 
     return (
-      <div className="flex items-center justify-center h-40 gap-4">
+      <div className="flex items-center justify-center h-14 gap-4">
         <input 
             type="checkbox"
             checked = {isChecked}
