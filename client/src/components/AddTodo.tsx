@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useState } from "react"
 import { Link, useNavigate } from "react-router";
+import { postTodoApi } from "../services/todoService";
 
 const AddTodo = () => {
     const [title, setTitle] = useState("");
@@ -9,7 +9,7 @@ const AddTodo = () => {
 
     const postTodo = async () => {
         try{
-            await axios.post("http://localhost:5001/api/todolist", {title: title});
+            await postTodoApi(title);
             navigate("/");
         } catch (error) {
             console.log("error in post todo", error);

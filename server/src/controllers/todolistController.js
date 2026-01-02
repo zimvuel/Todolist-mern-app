@@ -29,8 +29,8 @@ export const getTodoById = async (req, res) => {
 
 export const createTodolist = async (req, res) => {
     try{
-        const {title} = req.body;
-        const createdTodo = new Todo({title});
+        const {title, status} = req.body;
+        const createdTodo = new Todo({title, status});
         await createdTodo.save();
         res.status(201).json(createdTodo);
     }
@@ -42,8 +42,8 @@ export const createTodolist = async (req, res) => {
 
 export const updateTodolist = async (req, res) => {
     try{
-        const {title} = req.body;
-        const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, {title}, {new: true});
+        const {title, status} = req.body;
+        const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, {title, status}, {new: true});
 
         if(!updatedTodo){
             res.status(404).json({message: "Todo Not Found"});

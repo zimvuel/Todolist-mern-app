@@ -3,7 +3,7 @@ import TodoCard from "../components/TodoCard"
 import axios from "axios"
 import type { Todo } from "../types/CardTypes";
 import { Link } from "react-router";
-import { MdOutlineArrowDropDown, MdOutlineArrowDropUp, MdOutlineDarkMode, MdOutlineLightMode, MdOutlineSearch } from "react-icons/md";
+import { MdAdd, MdOutlineArrowDropDown, MdOutlineArrowDropUp, MdOutlineDarkMode, MdOutlineLightMode, MdOutlineSearch } from "react-icons/md";
 
 const HomePage = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -116,13 +116,13 @@ const HomePage = () => {
       </div>
       <div className="gap-2">
         {todos.map(todo => {
-          return <TodoCard title={todo.title} _id={todo._id}/> 
+          return <TodoCard title={todo.title} _id={todo._id} status={todo.status}/> 
         })}
       </div>
-      <div className="absolute bottom-4 right-4">
+      <div className="fixed bottom-10 right-90">
         <Link to="/addtodo">
-          <button>
-            addtodo
+          <button className="bg-primary-purple rounded-full p-2 justify-center items-center flex">
+            <MdAdd className="text-white text-4xl"/>
           </button>
         </Link>
       </div>

@@ -1,21 +1,27 @@
 import { useState } from "react"
-import type { Todo } from "../types/CardTypes"
+import type { Todo, TodoStatusUpdate } from "../types/CardTypes"
 import { MdOutlineEdit, MdOutlineDelete } from "react-icons/md";
 import { Link } from "react-router";
-import axios from "axios";
+import { deleteTodoApi, updateTodoStatusApi } from "../services/todoService";
 
 
 
-const TodoCard = ({title, _id} : Todo) => {
-    const [isChecked,setIsChecked] = useState(false);
+const TodoCard = ({title, _id, status} : Todo) => {
+    const [isChecked,setIsChecked] = useState(status);
     
     const deleteTodo = async () => {
         try {
-            await axios.delete(`http://localhost:5001/api/todolist/${_id}`);
+            await deleteTodoApi(_id);
             console.log("succesfully deleted ", title);
-
         } catch (error) {
             console.log("error in delete todo", error);
+        }
+    }
+    const updateTodoStatus = async ({id, status} : TodoStatusUpdate) => {
+        try{
+            await updateTodoStatusApi({id, status});
+        } catch (error) {
+            console.log("error in update todo", error);
         }
     }
 
@@ -25,11 +31,13 @@ const TodoCard = ({title, _id} : Todo) => {
             type="checkbox"
             checked = {isChecked}
             onChange={() => {
-                setIsChecked(!isChecked)
+                const todoStatus = !isChecked;
+                setIsChecked(todoStatus);
+                updateTodoStatus({ id: _id, status: todoStatus });
             }}
             className="w-6 h-6 accent-primary-purple "
         />
-        <div className="text-2xl leading-none w-lg">
+        <div className={`text-2xl leading-none w-lg ${isChecked ? "line-through text-gray-500" : ""}`}>
             {title}
         </div>
         <Link to={`/edittodo/${_id}`}>
