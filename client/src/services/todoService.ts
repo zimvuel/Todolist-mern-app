@@ -19,6 +19,10 @@ export const getTodoApi = async (id : string) => {
     return await axios.get(`${API_URL}/${id}`);
 }
 
+export const getTodoListApi = async () => {
+    return await axios.get(`${API_URL}`);
+}
+
 export const postTodoApi = async (title : string) => {
     return await axios.post(`${API_URL}`, {title: title});
 }

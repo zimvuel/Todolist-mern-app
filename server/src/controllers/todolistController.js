@@ -29,8 +29,8 @@ export const getTodoById = async (req, res) => {
 
 export const createTodolist = async (req, res) => {
     try{
-        const {title, status} = req.body;
-        const createdTodo = new Todo({title, status});
+        const {title} = req.body;
+        const createdTodo = new Todo({title, status: false});
         await createdTodo.save();
         res.status(201).json(createdTodo);
     }

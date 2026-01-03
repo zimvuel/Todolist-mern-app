@@ -2,10 +2,8 @@ export interface Todo {
     status: boolean;
     title: string;
     _id: string;
-}
-
-export interface TodoParams {
-    id: string;
+    onToggle: ({ id, status } : TodoStatusUpdate)  => void;
+    onDelete: (id: string) => void;
 }
 
 export type TodoStatusUpdate = {
@@ -15,5 +13,14 @@ export type TodoStatusUpdate = {
 
 export type TodoTitleUpdate = {
   id: string;
+  title: string;
+};
+
+export interface AddTodoParams {
+  handlePost: (title: string) => void;
+};
+
+export interface UpdateTodoParams {
+  handleUpdate: (title : string) => void;
   title: string;
 };

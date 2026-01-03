@@ -1,38 +1,17 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router";
-import type { TodoParams } from "../types/CardTypes";
-import { getTodoApi, updateTodoTitleApi } from "../services/todoService";
+import { Link } from "react-router";
+import type { UpdateTodoParams } from "../types/CardTypes";
 
-const EditTodo = ({id} : TodoParams ) => {
-    const [title, setTitle] = useState("");
-
-    const navigate = useNavigate();
+const EditTodo = ({ handleUpdate, title } : UpdateTodoParams) => {
+    const [newTitle, setNewTitle] = useState("");
 
     useEffect(() => {
-        const fetchTodo = async () => {
-            try{
-                const res = await getTodoApi(id);
-                setTitle(res.data.title);
-            } catch (error) {
-                console.log("error fetching data for edit", error);
-            }
-        }
-        fetchTodo();
-    }, [id]);
-
-    const updateTodoTitle = async () => {
-        try{
-            await updateTodoTitleApi({id, title});
-            navigate("/");
-        } catch (error) {
-            console.log("error in update todo", error);
-        }
-        
-    }
+        setNewTitle(title);
+    }, [title]);
 
     return (
         <div className="flex h-screen w-screen bg-gray-200 items-center justify-center">
-            <div className="flex flex-col items-center justify-between bg-white rounded-2xl w-lg h-72 gap-6">
+            <div className="flex flex-col items-center justify-start bg-white rounded-2xl w-lg h-72 gap-6">
                 <div className="text-2xl font-medium flex pt-4">
                     Change Todo
                 </div>
@@ -40,12 +19,12 @@ const EditTodo = ({id} : TodoParams ) => {
                     <input 
                         type="text"
                         placeholder="Input your todo..."
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        value={newTitle}
+                        onChange={(e) => setNewTitle(e.target.value)}
                         className="overflow-y-auto outline-none w-md h-10 placeholder: pl-2 text-lg"
                     />
                 </div>
-                <div className="flex justify-around w-full pb-4 gap-8">
+                <div className="flex justify-around w-full pb-4 gap-8 mt-24">
                     <Link to="/">
                         <button 
                             className="px-8 py-2 outline-primary-purple outline text-primary-purple font-medium rounded-md
@@ -55,7 +34,9 @@ const EditTodo = ({id} : TodoParams ) => {
                         </button>   
                     </Link>
                     <button 
-                        onClick={updateTodoTitle}
+                        onClick={() => 
+                            handleUpdate(newTitle)
+                        }
                         className="px-8 py-2 bg-primary-purple text-white font-medium rounded-md
                                     hover:outline-primary-purple hover:outline hover:text-primary-purple hover:bg-white"
                     >
