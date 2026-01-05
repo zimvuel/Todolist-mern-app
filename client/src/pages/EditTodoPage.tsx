@@ -1,36 +1,30 @@
 import { Navigate, useNavigate, useParams } from "react-router"
 import EditTodo from "../components/EditTodo"
 import { getTodoApi, updateTodoTitleApi } from "../services/todoService";
-import { useEffect, useState } from "react";
+import useSWR, { useSWRConfig } from "swr";
 
 const EditTodoPage = () => {
-    const [title, setTitle] = useState("");
     const { id } = useParams();
     const navigate = useNavigate();
+    const { mutate } = useSWRConfig();
 
-    useEffect(() => {
-        const fetchTodo = async () => {
-            if(!id){
-                return <Navigate to="/" replace />;
-            }
-            try{
-                const res = await getTodoApi(id);
-                setTitle(res.data.title);
-            } catch (error) {
-                console.log("error fetching data for edit", error);
-            }
-        }
-
-        fetchTodo();
-    }, [id]);
+    const fetcher = async () => await getTodoApi(id!).then(res => res.data);
+    
+    const { data: todo, isLoading, error } = useSWR(id ? `todo-${id}` : null, fetcher);
 
     if(!id){
         return <Navigate to="/" replace />;
     }
 
+    if (isLoading) return <div className="text-2xl">Loading...</div>;
+    if (error) return <div className="text-2xl text-red-500">Error loading todos</div>;
+
     const updateTodoTitle = async (title : string) => {
         try{
             await updateTodoTitleApi({id : id, title});
+
+            mutate("todos");
+            
             navigate("/");
         } catch (error) {
             console.log("error in update todo", error);
@@ -40,7 +34,7 @@ const EditTodoPage = () => {
 
     return (
         <div>
-            <EditTodo handleUpdate={updateTodoTitle} title={title}/>
+            <EditTodo handleUpdate={updateTodoTitle} title={todo.title}/>
         </div>
     )
 }

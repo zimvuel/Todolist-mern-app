@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react"
+import useSWR from "swr";
+import { useState } from "react"
 import TodoCard from "../components/TodoCard"
 import type { Todo, TodoStatusUpdate } from "../types/CardTypes";
 import { Link } from "react-router";
@@ -6,26 +7,42 @@ import { MdAdd, MdOutlineArrowDropDown, MdOutlineArrowDropUp, MdOutlineDarkMode,
 import { deleteTodoApi, getTodoListApi, updateTodoStatusApi } from "../services/todoService";
 
 const HomePage = () => {
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const fetcher = async () => await getTodoListApi().then(res => res.data);
+
+  const { data: todos, isLoading, error, mutate } = useSWR("todos", fetcher);
+
   const [search, setSearch] = useState("");
   const [isDropdown, setIsDropdown] = useState(false);
   const [filter, setFilter] = useState("ALL");
   const [isDarkMode, setIsDarkMode] = useState(false);
   
-  useEffect(() => {
-    const fetchTodos = async () => {
+  const handleDelete = async (id : string) => {
       try {
-        const res = await getTodoListApi();
-        setTodos(res.data);
+          await deleteTodoApi(id);
+          
+          mutate();
       } catch (error) {
-        console.log("fetch todos error", error);
+          console.log("error in delete todo", error);
       }
-    }
+  }
 
-    fetchTodos();
-  }, []);
+  const handleUpdate = async ({id, status} : TodoStatusUpdate) => {
+      try{
+          const newStatus = !status;
+          await updateTodoStatusApi({id, status: newStatus});
+          
+          mutate();
+      } catch (error) {
+          console.log("error in update todo", error);
+      }
+  }
 
-  const filteredTodos = todos.filter((todo) => {
+  if (isLoading) return <div className="text-2xl">Loading...</div>;
+  if (error) return <div className="text-2xl text-red-500">Error loading todos</div>;
+
+  const safeTodos = todos || [];
+
+  const filteredTodos = safeTodos.filter((todo : Todo) => {
     const matchesSearch = todo.title.toLowerCase().includes(search.toLowerCase());
     
     if (filter === "Complete") {
@@ -37,33 +54,6 @@ const HomePage = () => {
     
     return matchesSearch;
   });
-  
-  const handleDelete = async (id : string) => {
-      try {
-          await deleteTodoApi(id);
-          setTodos((prev) => 
-            prev.filter(todo => 
-              todo._id !== id
-            )
-          );
-      } catch (error) {
-          console.log("error in delete todo", error);
-      }
-  }
-
-  const handleUpdate = async ({id, status} : TodoStatusUpdate) => {
-      try{
-          const newStatus = !status;
-          await updateTodoStatusApi({id, status: newStatus});
-          setTodos((prev) => 
-            prev.map((todo) => 
-              todo._id === id ? {...todo, status: newStatus} : todo
-            )
-          )
-      } catch (error) {
-          console.log("error in update todo", error);
-      }
-  }
 
   return (
     <div className="flex flex-col items-center gap-8 pt-4 h-screen w-full px-4">
@@ -153,7 +143,7 @@ const HomePage = () => {
           </button>
       </div>
       <div className="gap-2">
-        {filteredTodos.map(todo => 
+        {filteredTodos.map((todo : Todo) => 
           <TodoCard 
             key={todo._id}
             title={todo.title} 

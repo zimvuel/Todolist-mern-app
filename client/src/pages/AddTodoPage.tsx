@@ -1,13 +1,18 @@
 import AddTodo from "../components/AddTodo"
 import { useNavigate } from "react-router";
 import { postTodoApi } from "../services/todoService";
+import { useSWRConfig } from "swr";
 
 const AddTodoPage = () => {
   const navigate = useNavigate();
+  const { mutate } = useSWRConfig();
 
   const postTodo = async (title: string) => {
       try{
           await postTodoApi(title);
+
+          mutate("todos");
+          
           navigate("/");
       } catch (error) {
           console.log("error in post todo", error);
