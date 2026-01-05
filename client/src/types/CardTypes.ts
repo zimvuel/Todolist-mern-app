@@ -24,3 +24,12 @@ export interface UpdateTodoParams {
   handleUpdate: (title : string) => void;
   title: string;
 };
+
+export interface ToolbarProps {
+  search: string;
+  setSearch: (search : string) => void;
+  filter: string;
+  setFilter: (filter : string) => void;
+  isDarkMode: boolean;
+  setIsDarkMode: (isDarkMode : boolean) => void;
+}
