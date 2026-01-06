@@ -16,7 +16,7 @@ const EditTodoPage = () => {
         return <Navigate to="/" replace />;
     }
 
-    if (isLoading) return <div className="text-2xl">Loading...</div>;
+    if (isLoading) return <div className="text-2xl dark:bg-black-mode">Loading...</div>;
     if (error) return <div className="text-2xl text-red-500">Error loading todos</div>;
 
     const updateTodoTitle = async (title : string) => {

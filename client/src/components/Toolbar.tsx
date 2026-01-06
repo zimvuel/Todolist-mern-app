@@ -15,7 +15,8 @@ const Toolbar = ({
           onSubmit={(e) => {
             e.preventDefault()
           }} 
-          className="flex flex-1 items-center border-primary-purple/90 border-2 rounded-lg focus-within:outline-2 focus-within:outline-primary-purple/30"
+          className="flex flex-1 items-center border-primary-purple/90 focus-within:outline-primary-purple/30 border-2 rounded-lg focus-within:outline-2
+                      dark:border-white/90 dark:focus-within:outline-white/30 dark:bg-black-mode"
         >
           <input 
             type="text"
@@ -23,11 +24,12 @@ const Toolbar = ({
             onChange={(e) => {
               setSearch(e.target.value);
             }}
-            className="flex-1 w-xl h-12 placeholder: pl-2 outline-none text-lg caret-primary-purple "
+            className="flex-1 w-xl h-12 placeholder: pl-2 outline-none text-lg text-primary-purple caret-primary-purple
+                        dark:text-white dark:caret-white"
             placeholder="Search todo..."
           />
           <button type="submit">
-            <MdOutlineSearch className="text-4xl text-primary-purple/90"/>
+            <MdOutlineSearch className="text-4xl text-primary-purple/90 dark:text-white"/>
           </button>
         </form>
         <div className="flex flex-col relative">

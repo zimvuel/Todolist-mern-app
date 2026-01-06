@@ -6,6 +6,8 @@ import { Link } from "react-router";
 import { MdAdd } from "react-icons/md";
 import { deleteTodoApi, getTodoListApi, updateTodoStatusApi } from "../services/todoService";
 import Toolbar from "../components/Toolbar";
+import useTheme from "../hooks/useTheme";
+import emptyTodolist from "../assets/emptyTodolist.png";
 
 const HomePage = () => {
   const fetcher = async () => await getTodoListApi().then(res => res.data);
@@ -14,7 +16,7 @@ const HomePage = () => {
 
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("ALL");
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const { isDark, setIsDark } = useTheme();
   
   const handleDelete = async (id : string) => {
       try {
@@ -37,7 +39,7 @@ const HomePage = () => {
       }
   }
 
-  if (isLoading) return <div className="text-2xl">Loading...</div>;
+  if (isLoading) return <div className="text-2xl dark:bg-black-mode">Loading...</div>;
   if (error) return <div className="text-2xl text-red-500">Error loading todos</div>;
 
   const safeTodos = todos || [];
@@ -56,7 +58,7 @@ const HomePage = () => {
   });
 
   return (
-    <div className="flex flex-col items-center gap-8 pt-4 h-screen w-full px-4">
+    <div className="flex flex-col items-center gap-8 pt-4 h-screen w-screen px-4 dark:bg-black-mode dark:text-white">
       <span className="text-4xl">
         TODO LIST
       </span>
@@ -65,8 +67,8 @@ const HomePage = () => {
         setSearch={setSearch} 
         filter={filter} 
         setFilter={setFilter} 
-        isDarkMode={isDarkMode} 
-        setIsDarkMode={setIsDarkMode}
+        isDarkMode={isDark} 
+        setIsDarkMode={setIsDark}
       />
       <div className="gap-2">
         {filteredTodos.map((todo : Todo) => 
@@ -78,6 +80,18 @@ const HomePage = () => {
             onToggle={handleUpdate}
             onDelete={handleDelete}
           />
+        )}
+        {filteredTodos.length === 0 && (
+          <div className="flex flex-col items-center justify-center gap-4 mt-10">
+            <img 
+              src={emptyTodolist} 
+              alt="No todo found" 
+              className="w-64 h-auto" 
+            />  
+            <p className="text-xl dark:text-white">
+              No todos found...
+            </p>
+          </div>
         )}
       </div>
       <div className="fixed bottom-10 right-90">

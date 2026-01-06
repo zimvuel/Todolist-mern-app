@@ -1,12 +1,16 @@
 import { Outlet } from "react-router"
+import { ThemeProvider } from "./context/ThemeProvider"
 
 const App = () => {
   return (
-    <div className="flex h-screen flex-col items-center justify-center">
-      <main>
-        <Outlet/>
-      </main>
-    </div>
+    <ThemeProvider>
+      <div className="flex h-screen flex-col items-center justify-center">
+        <main>
+          <Outlet/>
+        </main>
+      </div>
+    </ThemeProvider>
+    
   )
 }
 

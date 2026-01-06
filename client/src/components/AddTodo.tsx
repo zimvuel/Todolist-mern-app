@@ -6,8 +6,8 @@ const AddTodo = ({handlePost} : AddTodoParams) => {
     const [title, setTitle] = useState("");
 
     return (
-       <div className="flex h-screen w-screen bg-gray-200 items-center justify-center">
-            <div className="flex flex-col items-center justify-start bg-white rounded-2xl w-lg h-72 gap-6">
+       <div className="flex h-screen w-screen bg-gray-200 items-center justify-center dark:bg-black-mode dark:text-white">
+            <div className="flex flex-col items-center justify-start bg-white rounded-2xl w-lg h-72 gap-6 dark:border-2 dark:border-white dark:bg-black-mode">
                 <div className="text-2xl font-medium flex pt-4">
                     New Todo
                 </div>
@@ -17,7 +17,8 @@ const AddTodo = ({handlePost} : AddTodoParams) => {
                         placeholder="Input your todo..."
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
-                        className="overflow-y-auto outline-none w-md h-10 placeholder: pl-2 text-lg"
+                        className="overflow-y-auto outline-none w-md h-10 placeholder: pl-2 text-lg text-primary-purple/80 caret-primary-purple
+                        dark:text-white dark:caret-white"
                     />
                 </div>
                 <div className="flex justify-around w-full pb-4 gap-8 mt-24">
@@ -34,7 +35,7 @@ const AddTodo = ({handlePost} : AddTodoParams) => {
                             handlePost(title)
                         }
                         className="px-8 py-2 bg-primary-purple text-white font-medium rounded-md
-                                    hover:outline-primary-purple hover:outline hover:text-primary-purple hover:bg-white"
+                                    hover:outline-primary-purple hover:outline hover:text-primary-purple hover:bg-white dark:hover:bg-black-mode"
                     >
                         APPLY
                     </button>

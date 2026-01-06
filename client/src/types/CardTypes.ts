@@ -33,3 +33,8 @@ export interface ToolbarProps {
   isDarkMode: boolean;
   setIsDarkMode: (isDarkMode : boolean) => void;
 }
+
+export interface ThemeContextType {
+  isDark: boolean;
+  setIsDark: (isDark: boolean) => void;
+}
