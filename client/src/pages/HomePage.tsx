@@ -3,7 +3,7 @@ import { useState } from "react"
 import TodoCard from "../components/TodoCard"
 import type { Todo, TodoStatusUpdate } from "../types/CardTypes";
 import { Link } from "react-router";
-import { MdAdd } from "react-icons/md";
+import { MdAdd, MdPerson } from "react-icons/md";
 import { deleteTodoApi, getTodoListApi, updateTodoStatusApi } from "../services/todoService";
 import Toolbar from "../components/Toolbar";
 import useTheme from "../hooks/useTheme";
@@ -59,9 +59,17 @@ const HomePage = () => {
 
   return (
     <div className="flex flex-col items-center gap-8 pt-4 h-screen w-screen px-4 dark:bg-black-mode dark:text-white">
-      <span className="text-4xl">
-        TODO LIST
-      </span>
+      <div className="flex items-center w-full">
+        <div className="flex-1"></div>
+        <p className="text-4xl font-medium text-center">
+          TODO LIST
+        </p>
+        <div className="flex-1 flex justify-end">
+          <Link to={"/login"}>
+            <MdPerson className="h-12 w-auto cursor-pointer" />
+          </Link>
+        </div>
+      </div>
       <Toolbar 
         search={search} 
         setSearch={setSearch} 

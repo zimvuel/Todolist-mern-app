@@ -6,6 +6,8 @@ import AddTodoPage from "./pages/AddTodoPage"
 import App from './App'
 import EditTodoPage from './pages/EditTodoPage'
 import HomePage from './pages/HomePage'
+import LoginPage from './pages/LoginPage'
+import RegisterPage from './pages/RegisterPage'
 
 const router = createBrowserRouter([
   {
@@ -23,6 +25,14 @@ const router = createBrowserRouter([
       {
         path: "/edittodo/:id",
         element: <EditTodoPage />
+      },
+      {
+        path: "/login",
+        element: <LoginPage />
+      },
+      {
+        path: "/register",
+        element: <RegisterPage />
       }
     ]
   }
