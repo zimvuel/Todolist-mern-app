@@ -1,8 +1,8 @@
 import Todo from "../models/Todo.js";
 
-export const getTodolist = async (_, res) => {
+export const getTodolist = async (req, res) => {
     try{
-        const getTodolist = await Todo.find().sort({createdAt: -1});
+        const getTodolist = await Todo.find({ user: req.userId }).sort({createdAt: -1});
         res.status(200).json(getTodolist);
     }
     catch (error) {
@@ -30,8 +30,11 @@ export const getTodoById = async (req, res) => {
 export const createTodolist = async (req, res) => {
     try{
         const {title} = req.body;
-        const createdTodo = new Todo({title, status: false});
-        await createdTodo.save();
+        const createdTodo = await Todo.create({
+            title, 
+            status: false,
+            user: req.userId
+        });
         res.status(201).json(createdTodo);
     }
     catch (error) {

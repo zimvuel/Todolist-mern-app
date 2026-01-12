@@ -9,6 +9,11 @@ const todoSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
     },
+    user: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "User",
+        required: true,
+    },
 }, {timestamps: true});
 
 const Todo = mongoose.model("Todo", todoSchema);

@@ -14,4 +14,5 @@ const rateLimiter = async (_, res, next) => {
         next(error);
     }
 }
+
 export default rateLimiter;
