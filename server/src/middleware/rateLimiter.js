@@ -1,8 +1,8 @@
 import ratelimit from "../config/upstash.js";
 
-const rateLimiter = async (_, res, next) => {
+const rateLimiter = async (req, res, next) => {
     try {
-        const {success} = await ratelimit.limit("user-id");
+        const {success} = await ratelimit.limit(req.ip);
         
         if(!success){
             return res.status(429).json({message: "too many request"});

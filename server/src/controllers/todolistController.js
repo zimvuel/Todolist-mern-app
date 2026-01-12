@@ -13,10 +13,10 @@ export const getTodolist = async (req, res) => {
 
 export const getTodoById = async (req, res) => {
     try{
-        const getTodo = await Todo.findById(req.params.id);
+        const getTodo = await Todo.findById({_id: req.params.id, user: req.userId});
 
         if(!getTodo){
-            res.status(404).json({message: "Todo Not Found"})
+            return res.status(404).json({message: "Todo Not Found"})
         }
 
         res.status(200).json(getTodo);
@@ -46,10 +46,10 @@ export const createTodolist = async (req, res) => {
 export const updateTodolist = async (req, res) => {
     try{
         const {title, status} = req.body;
-        const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, {title, status}, {new: true});
+        const updatedTodo = await Todo.findByIdAndUpdate({_id: req.params.id, user: req.userId}, {title, status}, {new: true});
 
         if(!updatedTodo){
-            res.status(404).json({message: "Todo Not Found"});
+            return res.status(404).json({message: "Todo Not Found"});
         }
 
         res.status(200).json(updatedTodo);
@@ -62,10 +62,10 @@ export const updateTodolist = async (req, res) => {
 
 export const deleteTodolist = async (req, res) => {
     try{
-        const deletedTodo = await Todo.findByIdAndDelete(req.params.id);
+        const deletedTodo = await Todo.findByIdAndDelete({_id: req.params.id, user: req.userId});
 
         if(!deletedTodo){
-            res.status(404).json({message: "Todo Not Found"});
+            return res.status(404).json({message: "Todo Not Found"});
         }
 
         res.status(200).json(deletedTodo);
