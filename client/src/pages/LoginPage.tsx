@@ -1,15 +1,35 @@
 import { useState } from "react"
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import type { LoginParams } from "../types/CardTypes";
+import { loginApi } from "../services/authServices";
+import { useSWRConfig } from "swr";
+import axios from "axios";
 
 const LoginPage = () => {
+    const navigate = useNavigate();
+    const { mutate } = useSWRConfig();
+
     const [formData, setFormData] = useState<LoginParams>({
             identifier: "",
             password: "",
         });
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
+        try {
+            await loginApi(formData);
+    
+            await mutate("todos");
 
+            navigate("/");
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                const message = error.response?.data?.message || "An error occurred";
+                alert(message);
+            } else {
+                alert("An error occurred");
+                console.error(error);
+            }
+        }
     }
 
     return (

@@ -8,6 +8,8 @@ import { deleteTodoApi, getTodoListApi, updateTodoStatusApi } from "../services/
 import Toolbar from "../components/Toolbar";
 import useTheme from "../hooks/useTheme";
 import emptyTodolist from "../assets/emptyTodolist.png";
+import { logoutApi } from "../services/authServices";
+import { revalidateEvents } from "swr/_internal";
 
 const HomePage = () => {
   const fetcher = async () => await getTodoListApi().then(res => res.data);
@@ -37,6 +39,18 @@ const HomePage = () => {
       } catch (error) {
           console.log("error in update todo", error);
       }
+  }
+
+  const handleLogout = async () => {
+    try {
+      await logoutApi();
+      await mutate("todos", {
+        optimisticData: [],  
+        revalidate: false 
+      });
+    } catch (error) {
+      console.log("error in handle logout", error)
+    }
   }
 
   if (isLoading) return <div className="text-2xl dark:bg-black-mode">Loading...</div>;

@@ -1,6 +1,7 @@
 import axios from "axios";
 import type { TodoStatusUpdate, TodoTitleUpdate } from "../types/CardTypes";
 
+axios.defaults.withCredentials = true;
 const API_URL = "http://localhost:5001/api/todolist";
 
 export const updateTodoTitleApi = async ({id, title} : TodoTitleUpdate) => {

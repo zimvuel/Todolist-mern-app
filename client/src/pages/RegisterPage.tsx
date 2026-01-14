@@ -1,8 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import type { RegisterParams } from "../types/CardTypes";
+import { registerApi } from "../services/authServices";
 
 const RegisterPage = () => {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState<RegisterParams>({
         username: "",
         email: "",
@@ -10,8 +13,13 @@ const RegisterPage = () => {
         confirmPassword: "",
     });
 
-    const handleRegister = () => {
-
+    const handleRegister =  async () => {
+        try {
+            await registerApi(formData);
+            navigate("/login");
+        } catch (error) {
+            console.log("error in handle register", error);
+        }
     }
     
     return (
