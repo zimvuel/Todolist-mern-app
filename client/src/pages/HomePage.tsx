@@ -9,7 +9,7 @@ import Toolbar from "../components/Toolbar";
 import useTheme from "../hooks/useTheme";
 import emptyTodolist from "../assets/emptyTodolist.png";
 import { logoutApi } from "../services/authServices";
-import { revalidateEvents } from "swr/_internal";
+import axios from "axios";
 
 const HomePage = () => {
   const fetcher = async () => await getTodoListApi().then(res => res.data);
@@ -54,7 +54,17 @@ const HomePage = () => {
   }
 
   if (isLoading) return <div className="text-2xl dark:bg-black-mode">Loading...</div>;
-  if (error) return <div className="text-2xl text-red-500">Error loading todos</div>;
+  if (error) {
+    if(axios.isAxiosError(error)){
+      return (
+        <div className="flex justify-center items-center gap-32 text-3xl">
+          <Link to="/login">Login</Link>
+          <Link to="/register">Register</Link>
+        </div>
+      )
+    }
+    return <div className="text-2xl text-red-500">Error loading todos</div>;
+  }
 
   const safeTodos = todos || [];
 
@@ -79,9 +89,8 @@ const HomePage = () => {
           TODO LIST
         </p>
         <div className="flex-1 flex justify-end">
-          <Link to={"/login"}>
-            <MdPerson className="h-12 w-auto cursor-pointer" />
-          </Link>
+          <button onClick={handleLogout}>logout</button>
+          <MdPerson className="h-12 w-auto cursor-pointer" />
         </div>
       </div>
       <Toolbar 
