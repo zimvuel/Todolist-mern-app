@@ -10,6 +10,11 @@ export const register = async (req, res) => {
 
         res.status(201).json({message: "Created new user"});
     } catch(error){
+        if(error.name === 'ValidationError'){
+            const message = Object.values(error.errors).map(val => val.message);
+            return res.status(400).json({message: message[0]});
+        }
+
         console.log("error in createUser controller", error);
         res.status(500).json({message: "internal server error"});
     }

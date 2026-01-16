@@ -2,7 +2,7 @@ import useSWR from "swr";
 import { useState } from "react"
 import TodoCard from "../components/TodoCard"
 import type { Todo, TodoStatusUpdate } from "../types/CardTypes";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { MdAdd, MdPerson } from "react-icons/md";
 import { deleteTodoApi, getTodoListApi, updateTodoStatusApi } from "../services/todoService";
 import Toolbar from "../components/Toolbar";
@@ -12,6 +12,7 @@ import { logoutApi } from "../services/authServices";
 import axios from "axios";
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const fetcher = async () => await getTodoListApi().then(res => res.data);
 
   const { data: todos, isLoading, error, mutate } = useSWR("todos", fetcher);
@@ -55,14 +56,8 @@ const HomePage = () => {
 
   if (isLoading) return <div className="text-2xl dark:bg-black-mode">Loading...</div>;
   if (error) {
-    if(axios.isAxiosError(error)){
-      return (
-        <div className="flex justify-center items-center gap-32 text-3xl">
-          <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
-        </div>
-      )
-    }
+    if(axios.isAxiosError(error)) return navigate("/login");
+
     return <div className="text-2xl text-red-500">Error loading todos</div>;
   }
 
@@ -89,7 +84,12 @@ const HomePage = () => {
           TODO LIST
         </p>
         <div className="flex-1 flex justify-end">
-          <button onClick={handleLogout}>logout</button>
+          <button 
+            onClick={handleLogout}
+            className="text-primary-purple font-medium hover:underline dark:text-white"
+          >
+            logout
+          </button>
           <MdPerson className="h-12 w-auto cursor-pointer" />
         </div>
       </div>
