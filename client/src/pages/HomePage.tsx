@@ -56,7 +56,10 @@ const HomePage = () => {
 
   if (isLoading) return <div className="text-2xl dark:bg-black-mode">Loading...</div>;
   if (error) {
-    if(axios.isAxiosError(error)) return navigate("/login");
+    if(axios.isAxiosError(error)){
+      navigate("/login");
+      return null;
+    } 
 
     return <div className="text-2xl text-red-500">Error loading todos</div>;
   }
