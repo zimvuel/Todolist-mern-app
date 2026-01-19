@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router";
-import type { LoginParams } from "../types/CardTypes";
+import type { LoginParams } from "../types/AuthTypes";
 import { loginApi } from "../services/authServices";
 import { useSWRConfig } from "swr";
 import axios from "axios";
@@ -43,7 +43,13 @@ const LoginPage = () => {
                         className="text-primary-purple font-medium hover:underline dark:text-white"    
                     >Register</Link>
                 </div>
-                <div className="flex flex-col gap-6 items-center">
+                <form 
+                    onSubmit={(e)=> {
+                        e.preventDefault();
+                        handleLogin();
+                    }}
+                    className="flex flex-col gap-6 items-center"
+                >
                     <div className="text-2xl font-medium flex pt-4">
                         Login
                     </div>
@@ -82,7 +88,8 @@ const LoginPage = () => {
 
                     <div className="flex justify-around w-full mb-4 gap-8 mt-6">
                         <Link to="/">
-                            <button 
+                            <button
+                                type="button" 
                                 className="px-8 py-2 outline-primary-purple outline text-primary-purple font-medium rounded-md
                                             hover:bg-primary-purple hover:text-white"
                             >
@@ -90,16 +97,14 @@ const LoginPage = () => {
                             </button>   
                         </Link>
                         <button 
-                            onClick={() => 
-                                handleLogin()
-                            }
+                            type="submit"
                             className="px-8 py-2 bg-primary-purple text-white font-medium rounded-md
                                         hover:outline-primary-purple hover:outline hover:text-primary-purple hover:bg-white dark:hover:bg-black-mode"
                         >
                             APPLY
                         </button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     )

@@ -38,15 +38,3 @@ export interface ThemeContextType {
   isDark: boolean;
   setIsDark: (isDark: boolean) => void;
 }
-
-export interface RegisterParams {
-  username: string,
-  email: string,
-  password: string,
-  confirmPassword: string,
-}
-
-export interface LoginParams {
-  identifier: string,
-  password: string,
-}

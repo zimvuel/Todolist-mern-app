@@ -7,7 +7,9 @@ const AddTodo = ({handlePost} : AddTodoParams) => {
 
     return (
        <div className="flex h-screen w-screen bg-gray-200 items-center justify-center dark:bg-black-mode dark:text-white">
-            <div className="flex flex-col items-center justify-start bg-white rounded-2xl w-lg h-72 gap-6 dark:border-2 dark:border-white dark:bg-black-mode">
+            <form
+                onSubmit={() => handlePost(title)}
+                className="flex flex-col items-center justify-start bg-white rounded-2xl w-lg h-72 gap-6 dark:border-2 dark:border-white dark:bg-black-mode">
                 <div className="text-2xl font-medium flex pt-4">
                     New Todo
                 </div>
@@ -23,7 +25,8 @@ const AddTodo = ({handlePost} : AddTodoParams) => {
                 </div>
                 <div className="flex justify-around w-full pb-4 gap-8 mt-24">
                     <Link to="/">
-                        <button 
+                        <button
+                            type="button"
                             className="px-8 py-2 outline-primary-purple outline text-primary-purple font-medium rounded-md
                                         hover:bg-primary-purple hover:text-white"
                         >
@@ -31,16 +34,14 @@ const AddTodo = ({handlePost} : AddTodoParams) => {
                         </button>   
                     </Link>
                     <button 
-                        onClick={() => 
-                            handlePost(title)
-                        }
+                        type="submit"
                         className="px-8 py-2 bg-primary-purple text-white font-medium rounded-md
                                     hover:outline-primary-purple hover:outline hover:text-primary-purple hover:bg-white dark:hover:bg-black-mode"
                     >
                         APPLY
                     </button>
                 </div>
-            </div>
+            </form>
         </div>
     )
 }

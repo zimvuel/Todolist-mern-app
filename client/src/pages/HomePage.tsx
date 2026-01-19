@@ -44,6 +44,7 @@ const HomePage = () => {
 
   const handleLogout = async () => {
     try {
+      navigate("/login");
       await logoutApi();
       await mutate("todos", {
         optimisticData: [],  
@@ -89,11 +90,11 @@ const HomePage = () => {
         <div className="flex-1 flex justify-end">
           <button 
             onClick={handleLogout}
-            className="text-primary-purple font-medium hover:underline dark:text-white"
+            className="text-gray-600 font-medium hover:underline dark:text-white cursor-pointer"
           >
             logout
           </button>
-          <MdPerson className="h-12 w-auto cursor-pointer" />
+          <MdPerson className="h-12 w-auto text-primary-purple" />
         </div>
       </div>
       <Toolbar 

@@ -8,7 +8,7 @@ export const register = async (req, res) => {
 
         const createUser = await User.create({username, email, password});
 
-        res.status(201).json({message: "Created new user"});
+        res.status(201).json(createUser);
     } catch(error){
         if(error.name === 'ValidationError'){
             const message = Object.values(error.errors).map(val => val.message);

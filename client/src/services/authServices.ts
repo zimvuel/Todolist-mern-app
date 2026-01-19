@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { LoginParams, RegisterParams } from "../types/CardTypes";
+import type { LoginParams, RegisterData } from "../types/AuthTypes";
 
 const API_URL = "http://localhost:5001/api/auth";
 
@@ -8,7 +8,7 @@ const authApi = axios.create({
     withCredentials: true,
 });
 
-export const registerApi = async (data: RegisterParams) => {
+export const registerApi = async (data: RegisterData) => {
     return await authApi.post('register', data);
 }
 
