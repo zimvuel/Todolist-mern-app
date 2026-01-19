@@ -8,7 +8,10 @@ const AddTodo = ({handlePost} : AddTodoParams) => {
     return (
        <div className="flex h-screen w-screen bg-gray-200 items-center justify-center dark:bg-black-mode dark:text-white">
             <form
-                onSubmit={() => handlePost(title)}
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    handlePost(title)
+                }}
                 className="flex flex-col items-center justify-start bg-white rounded-2xl w-lg h-72 gap-6 dark:border-2 dark:border-white dark:bg-black-mode">
                 <div className="text-2xl font-medium flex pt-4">
                     New Todo
