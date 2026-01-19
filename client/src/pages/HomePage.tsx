@@ -54,7 +54,7 @@ const HomePage = () => {
     }
   }
 
-  if (isLoading) return <div className="text-2xl dark:bg-black-mode">Loading...</div>;
+  if (isLoading) return <div className="text-2xl dark:bg-black-mode dark:text-white text-primary-purple h-screen w-screen justify-center items-center">Loading...</div>;
   if (error) {
     if(axios.isAxiosError(error)){
       navigate("/login");
