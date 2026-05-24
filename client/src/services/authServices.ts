@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { LoginParams, RegisterData } from "../types/AuthTypes";
 
-const API_URL = "http://localhost:5001/api/auth";
+const API_URL = import.meta.env.VITE_API_URL + "/auth";
 
 const authApi = axios.create({
     baseURL: API_URL,
