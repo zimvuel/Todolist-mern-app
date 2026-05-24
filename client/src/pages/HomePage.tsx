@@ -3,7 +3,7 @@ import { useState } from "react"
 import TodoCard from "../components/TodoCard"
 import type { Todo, TodoStatusUpdate } from "../types/CardTypes";
 import { Link, useNavigate } from "react-router";
-import { MdAdd, MdPerson } from "react-icons/md";
+import { MdAdd, MdLogout } from "react-icons/md";
 import { deleteTodoApi, getTodoListApi, updateTodoStatusApi } from "../services/todoService";
 import Toolbar from "../components/Toolbar";
 import useTheme from "../hooks/useTheme";
@@ -87,14 +87,14 @@ const HomePage = () => {
         <p className="text-4xl font-medium text-center">
           TODO LIST
         </p>
-        <div className="flex-1 flex justify-end">
+        <div className="flex-1 flex justify-end items-center gap-4">
           <button 
             onClick={handleLogout}
-            className="text-gray-600 font-medium hover:underline dark:text-white cursor-pointer"
+            className="flex items-center gap-2 px-4 py-2 bg-red-50 text-red-600 hover:bg-red-100 dark:bg-red-900/20 dark:text-red-400 dark:hover:bg-red-900/40 rounded-lg transition-colors font-medium cursor-pointer"
           >
-            logout
+            <MdLogout className="text-xl" />
+            <span>Logout</span>
           </button>
-          <MdPerson className="h-12 w-auto text-primary-purple" />
         </div>
       </div>
       <Toolbar 
