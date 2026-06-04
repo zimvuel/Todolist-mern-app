@@ -13,7 +13,7 @@ const AddTodoPage = () => {
 
           mutate("todos");
           
-          navigate("/");
+          navigate("/todos");
       } catch (error) {
           console.log("error in post todo", error);
       }

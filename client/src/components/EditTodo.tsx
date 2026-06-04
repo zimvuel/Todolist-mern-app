@@ -31,7 +31,7 @@ const EditTodo = ({ handleUpdate, title } : UpdateTodoParams) => {
                     />
                 </div>
                 <div className="flex justify-around w-full pb-4 gap-8 mt-24">
-                    <Link to="/">
+                    <Link to="/todos">
                         <button
                             type="button"
                             className="px-8 py-2 outline-primary-purple outline text-primary-purple font-medium rounded-md

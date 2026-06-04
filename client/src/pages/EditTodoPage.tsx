@@ -13,7 +13,7 @@ const EditTodoPage = () => {
     const { data: todo, isLoading, error } = useSWR(id ? `todo-${id}` : null, fetcher);
 
     if(!id){
-        return <Navigate to="/" replace />;
+        return <Navigate to="/todos" replace />;
     }
 
     if (isLoading) return <div className="text-2xl dark:bg-black-mode">Loading...</div>;
@@ -25,7 +25,7 @@ const EditTodoPage = () => {
 
             mutate("todos");
             
-            navigate("/");
+            navigate("/todos");
         } catch (error) {
             console.log("error in update todo", error);
         }
