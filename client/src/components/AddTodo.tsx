@@ -6,31 +6,31 @@ const AddTodo = ({handlePost} : AddTodoParams) => {
     const [title, setTitle] = useState("");
 
     return (
-       <div className="flex h-screen w-screen bg-gray-200 items-center justify-center dark:bg-black-mode dark:text-white">
+       <div className="flex min-h-dvh w-full items-center justify-center bg-gray-200 px-4 py-8 dark:bg-black-mode dark:text-white">
             <form
                 onSubmit={(e) => {
                     e.preventDefault();
                     handlePost(title)
                 }}
-                className="flex flex-col items-center justify-start bg-white rounded-2xl w-lg h-72 gap-6 dark:border-2 dark:border-white dark:bg-black-mode">
-                <div className="text-2xl font-medium flex pt-4">
+                className="flex w-full max-w-lg flex-col items-center justify-start gap-6 rounded-2xl bg-white p-4 dark:border-2 dark:border-white dark:bg-black-mode sm:p-6">
+                <div className="flex pt-2 text-2xl font-medium sm:pt-4">
                     New Todo
                 </div>
-                <div className="outline outline-primary-purple rounded-md">
+                <div className="w-full rounded-md outline outline-primary-purple">
                     <input 
                         type="text"
                         placeholder="Input your todo..."
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
-                        className="overflow-y-auto outline-none w-md h-10 placeholder: pl-2 text-lg text-primary-purple/80 caret-primary-purple
+                        className="h-10 w-full min-w-0 px-3 text-base text-primary-purple/80 outline-none caret-primary-purple sm:text-lg
                         dark:text-white dark:caret-white"
                     />
                 </div>
-                <div className="flex justify-around w-full pb-4 gap-8 mt-24">
-                    <Link to="/">
+                <div className="mt-4 flex w-full flex-col gap-3 sm:mt-12 sm:flex-row sm:justify-around sm:gap-8">
+                    <Link to="/todos" className="w-full sm:w-auto">
                         <button
                             type="button"
-                            className="px-8 py-2 outline-primary-purple outline text-primary-purple font-medium rounded-md
+                            className="w-full rounded-md px-8 py-2 font-medium text-primary-purple outline outline-primary-purple
                                         hover:bg-primary-purple hover:text-white"
                         >
                             CANCEL
@@ -38,10 +38,10 @@ const AddTodo = ({handlePost} : AddTodoParams) => {
                     </Link>
                     <button 
                         type="submit"
-                        className="px-8 py-2 bg-primary-purple text-white font-medium rounded-md
+                        className="w-full rounded-md bg-primary-purple px-8 py-2 font-medium text-white sm:w-auto
                                     hover:outline-primary-purple hover:outline hover:text-primary-purple hover:bg-white dark:hover:bg-black-mode"
                     >
-                        APPLY
+                        ADD TODO
                     </button>
                 </div>
             </form>

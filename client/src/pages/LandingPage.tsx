@@ -11,23 +11,23 @@ import TodoLogo from "../components/TodoLogo";
 import useTheme from "../hooks/useTheme";
 
 const previewTodos = [
-  { title: "Review sprint priorities", status: true },
-  { title: "Plan tomorrow's focus block", status: false },
-  { title: "Send the project update", status: false },
+  { title: "Finish weekly goals", status: true },
+  { title: "Plan tomorrow's tasks", status: false },
+  { title: "Send team progress report", status: false },
 ];
 
 const featureCards = [
   {
-    title: "Capture quickly",
-    body: "Add tasks in a focused flow that keeps the interface quiet and direct.",
+    title: "Quick Add",
+    body: "Write and save your tasks in seconds without any clutter.",
   },
   {
-    title: "Find the next task",
-    body: "Search and filter by completion state without leaving the list.",
+    title: "Instant Search",
+    body: "Find what you need by searching or filtering in real-time.",
   },
   {
-    title: "Work in your theme",
-    body: "Switch between light and dark mode with the same clean contrast.",
+    title: "Dark & Light Mode",
+    body: "Switch themes easily to keep your eyes comfortable day or night.",
   },
 ];
 
@@ -77,7 +77,7 @@ const LandingPage = () => {
   const { isDark, setIsDark } = useTheme();
 
   return (
-    <div className="flex h-dvh w-full flex-col overflow-hidden bg-white text-black-mode dark:bg-black-mode dark:text-white">
+    <div className="flex min-h-dvh md:h-dvh w-full flex-col overflow-y-auto md:overflow-hidden bg-white text-black-mode dark:bg-black-mode dark:text-white">
       <header className="shrink-0 border-b border-primary-purple/15 bg-white/90 backdrop-blur dark:border-white/10 dark:bg-black-mode/90">
         <nav className="mx-auto flex min-h-16 w-full max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6 md:min-h-18 lg:px-4">
           <TodoLogo
@@ -113,9 +113,9 @@ const LandingPage = () => {
         </nav>
       </header>
 
-      <main className="flex min-h-0 flex-1 flex-col overflow-hidden">
-        <section className="flex min-h-0 flex-1 items-center bg-gray-100 dark:bg-black-mode">
-          <div className="mx-auto grid w-full max-w-6xl items-center gap-5 px-4 py-5 sm:px-6 sm:py-6 md:grid-cols-[minmax(0,1fr)_minmax(20rem,26rem)] md:gap-8 lg:px-4">
+      <main className="flex min-h-0 flex-1 flex-col md:overflow-hidden">
+        <section className="flex flex-1 items-center py-8 md:min-h-0 md:py-0 bg-gray-100 dark:bg-black-mode">
+          <div className="mx-auto grid w-full max-w-6xl items-center gap-5 px-4 py-5 sm:px-6 sm:py-6 md:grid-cols-2 md:gap-8 lg:px-4">
             <div className="max-w-2xl">
               <h1 className="text-4xl font-medium leading-tight text-black-mode dark:text-white sm:text-5xl md:text-6xl">
                 TODO LIST
@@ -140,11 +140,11 @@ const LandingPage = () => {
                 </Link>
               </div>
             </div>
-            <TodoPreview className="w-full md:justify-self-end" />
+            <TodoPreview className="w-full max-w-md md:justify-self-end" />
           </div>
         </section>
 
-        <section className="hidden shrink-0 border-t border-primary-purple/15 bg-white px-4 py-4 dark:border-white/10 dark:bg-black-mode sm:px-6 md:block lg:px-4">
+        <section className="shrink-0 border-t border-primary-purple/15 bg-white px-4 py-6 dark:border-white/10 dark:bg-black-mode sm:px-6 lg:px-4">
           <div className="mx-auto grid w-full max-w-6xl gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {featureCards.map((feature) => (
               <article

@@ -10,12 +10,12 @@ const Toolbar = ({
     const [isDropdown, setIsDropdown] = useState(false);
 
     return (
-    <div className="flex gap-4 w-full max-w-3xl items-center">
+    <div className="grid w-full max-w-3xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 sm:flex sm:gap-4">
         <form 
           onSubmit={(e) => {
             e.preventDefault()
           }} 
-          className="flex flex-1 items-center border-primary-purple/90 focus-within:outline-primary-purple/30 border-2 rounded-lg focus-within:outline-2
+          className="col-span-2 flex min-w-0 items-center border-primary-purple/90 focus-within:outline-primary-purple/30 border-2 rounded-lg focus-within:outline-2 sm:flex-1
                       dark:border-white/90 dark:focus-within:outline-white/30 dark:bg-black-mode"
         >
           <input 
@@ -24,20 +24,25 @@ const Toolbar = ({
             onChange={(e) => {
               setSearch(e.target.value);
             }}
-            className="flex-1 w-xl h-12 placeholder: pl-2 outline-none text-lg text-primary-purple caret-primary-purple
+            className="min-w-0 flex-1 h-11 px-3 outline-none text-base text-primary-purple caret-primary-purple sm:h-12 sm:text-lg
                         dark:text-white dark:caret-white"
             placeholder="Search todo..."
           />
-          <button type="submit">
-            <MdOutlineSearch className="text-4xl text-primary-purple/90 dark:text-white"/>
+          <button 
+            type="submit"
+            className="flex h-11 w-11 shrink-0 items-center justify-center sm:h-12 sm:w-12"
+            aria-label="Search todos"
+          >
+            <MdOutlineSearch className="text-3xl text-primary-purple/90 dark:text-white sm:text-4xl"/>
           </button>
         </form>
-        <div className="flex flex-col relative">
+        <div className="relative flex min-w-0 flex-col">
             <button 
-            className={`flex justify-between min-w-30 text-2xl items-center bg-primary-purple/90 rounded-lg text-white 
+            type="button"
+            className={`flex h-11 min-w-0 items-center justify-between rounded-lg border-2 bg-primary-purple/90 px-3 text-base text-white sm:h-12 sm:min-w-30 sm:text-2xl 
                         ${isDropdown 
-                          ? "p-[6.5px] border-2 border-primary-purple rounded-lg" 
-                          : "p-2"
+                          ? "border-primary-purple" 
+                          : "border-transparent"
                         }`
                       } 
             onClick={() => {
@@ -51,9 +56,10 @@ const Toolbar = ({
             }
           </button>
           {isDropdown && 
-            <div className="absolute flex flex-col text-primary-purple border border-primary-purple rounded-lg bg-white z-3 mt-13 w-full">
+            <div className="absolute top-full z-3 mt-2 flex w-full min-w-36 flex-col overflow-hidden rounded-lg border border-primary-purple bg-white text-primary-purple shadow-sm dark:bg-black-mode dark:text-white">
               <button 
-                className="hover:bg-gray-200 pl-2 text-left"
+                type="button"
+                className="px-3 py-2 text-left hover:bg-gray-200 dark:hover:bg-white/10"
                 onClick={() => {
                   setFilter("ALL");
                   setIsDropdown(false);
@@ -62,7 +68,8 @@ const Toolbar = ({
                 All
               </button>
               <button 
-                className="hover:bg-gray-200 pl-2 text-left"
+                type="button"
+                className="px-3 py-2 text-left hover:bg-gray-200 dark:hover:bg-white/10"
                 onClick={() => {
                   setFilter("Complete");
                   setIsDropdown(false);
@@ -71,7 +78,8 @@ const Toolbar = ({
                 Complete
               </button>
               <button 
-                className="hover:bg-gray-200 pl-2 text-left"
+                type="button"
+                className="px-3 py-2 text-left hover:bg-gray-200 dark:hover:bg-white/10"
                 onClick={() => {
                   setFilter("Incomplete");
                   setIsDropdown(false);
@@ -83,14 +91,16 @@ const Toolbar = ({
           } 
         </div>
         <button
-            className="bg-primary-purple p-1.5 rounded-lg"
+            type="button"
+            aria-label="Toggle theme"
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary-purple sm:h-12 sm:w-12"
             onClick={() => {
               setIsDarkMode(!isDarkMode)
             }}
           >
             {isDarkMode 
-              ? <MdOutlineLightMode className="text-4xl text-white"/> 
-              : <MdOutlineDarkMode className="text-4xl text-white"/> 
+              ? <MdOutlineLightMode className="text-3xl text-white sm:text-4xl"/> 
+              : <MdOutlineDarkMode className="text-3xl text-white sm:text-4xl"/> 
             }
         </button>
     </div>
